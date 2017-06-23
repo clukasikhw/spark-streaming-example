@@ -25,12 +25,14 @@ object StreamingExample {
     val ssc = new StreamingContext(sc, Seconds(windowSize.toInt))
 
     val lines = ssc.textFileStream(srcDir)
-    val massagedLinesTuples = lines.map(x => (x, Math.random()))
+    val massagedLinesTuples = lines.map(x => (Math.random(), x))
     massagedLinesTuples.foreachRDD(rdd => {
-      val dirName = "d" + Math.random()
-      println ("Saving sequence file " + dirName)
-      rdd.saveAsSequenceFile(destDir + "/" + dirName)
-      println("Done saving sequence file " + dirName)
+      if (!rdd.isEmpty) {
+        val dirName = "d" + Math.random()
+        println ("Saving sequence file " + dirName)
+        rdd.saveAsSequenceFile(destDir + "/" + dirName)
+        println("Done saving sequence file " + dirName)
+      }
     }
     )
 
