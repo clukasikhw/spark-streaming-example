@@ -24,8 +24,6 @@ object StreamingExample {
     val destDir = arg(2)
     val ssc = new StreamingContext(sc, Seconds(windowSize.toInt))
 
-    // Create the FileInputDStream on the directory and use the
-    // stream to count words in new files created
     val lines = ssc.textFileStream(srcDir)
     val massagedLinesTuples = lines.map(x => (x, Math.random()))
     massagedLinesTuples.foreachRDD(rdd => {
