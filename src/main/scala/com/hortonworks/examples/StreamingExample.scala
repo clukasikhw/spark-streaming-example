@@ -11,7 +11,7 @@ object StreamingExample {
   def main(arg: Array[String]) {
 
     if (arg.length < 2) {
-      System.err.println("Usage: StreamingExample WindowSize DestinationFolder")
+      System.err.println("Usage: StreamingExample WindowSize SourceFolder DestinationFolder")
       System.exit(1)
     }
 
